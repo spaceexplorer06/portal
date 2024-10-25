@@ -30,7 +30,7 @@ class Contact extends StatefulWidget {
 
 class _ContactState extends State<Contact> {
   final List<ContactInfo> contacts = [
-    ContactInfo(name: "Dr. Moinak Dey", title: "Campus Director", email: "moinakdey21@gmail.com", phone: "9123811801"),
+    ContactInfo(name: "Dr. Alice Smith", title: "Campus Director", email: "alice.smith@university.edu", phone: "1234567890"),
     ContactInfo(name: "Prof. John Doe", title: "Dean", email: "john.doe@university.edu", phone: "2345678901"),
     ContactInfo(name: "Dr. Sarah Johnson", title: "HOD - Computer Science", email: "sarah.johnson@university.edu", phone: "3456789012"),
     ContactInfo(name: "Dr. Michael Brown", title: "HOD - Electrical Engineering", email: "michael.brown@university.edu", phone: "4567890123"),
@@ -172,16 +172,22 @@ class ContactCard extends StatelessWidget {
     final Uri launchUri = Uri(
       scheme: 'mailto',
       path: email,
-      query: encodeQueryParameters({'subject': 'Hello', 'body': 'I would like to discuss...'}),
+      query: encodeQueryParameters({
+        'subject': 'Hello',
+        'body': 'I would like to discuss...',
+      }),
     );
 
-    // Debug print
     print('Email URI: $launchUri');
 
-    if (await canLaunchUrl(launchUri)) {
-      await launchUrl(launchUri);
-    } else {
-      print('Could not launch email client');
+    try {
+      if (await canLaunchUrl(launchUri)) {
+        await launchUrl(launchUri);
+      } else {
+        print('Could not launch email client. Check if an email app is installed.');
+      }
+    } catch (e) {
+      print('Error launching email client: $e');
     }
   }
 
