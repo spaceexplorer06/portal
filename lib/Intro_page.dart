@@ -25,49 +25,96 @@ class _IntroPageState extends State<IntroPage> {
 
       // Drawer for navigation
       drawer: Drawer(
-        child: Container(
-          color: const Color.fromARGB(255, 255, 122, 122),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Profile()));
-                      },
-                      icon: const Icon(Icons.person),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Profile",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+  child: Container(
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Colors.teal, Color.fromARGB(255, 255, 122, 122)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    ),
+    child: ListView(
+      children: [
+        // User profile section with background image and rounded profile picture
+        UserAccountsDrawerHeader(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/Images/moinakdey.jpeg"), // Background image
+              fit: BoxFit.cover,
+            ),
+          ),
+          currentAccountPicture: CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.white,
+            child: ClipOval(
+              child: Image.asset(
+                "assets/Images/moinakdey.jpeg", // User's profile picture
+                fit: BoxFit.cover,
+                width: 90,
+                height: 90,
               ),
-              ListTile(
-                leading: const Icon(Icons.people),
-                title: const Text("Check Sitting Plan"),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ClassGrid()));
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.contact_phone_sharp),
-                title: const Text("Contact Faculty"),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Contact()));
-                },
-              ),
-            ],
+            ),
+          ),
+          accountName: const Text(
+            "User Name", // Replace with actual user name
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          accountEmail: const Text(
+            "user@example.com", // Replace with actual user email
+            style: TextStyle(color: Colors.white70),
           ),
         ),
-      ),
+        ListTile(
+          leading: const Icon(Icons.people, color: Colors.white),
+          title: const Text(
+            "Check Sitting Plan",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ClassGrid()));
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.contact_phone_sharp, color: Colors.white),
+          title: const Text(
+            "Contact Faculty",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Contact()));
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.account_circle, color: Colors.white),
+          title: const Text(
+            "Profile",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Profile()));
+          },
+        ),
+      ],
+    ),
+  ),
+),
+
 
       // GestureDetector for opening drawer on swipe
       body: GestureDetector(
